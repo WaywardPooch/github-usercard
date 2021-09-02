@@ -4,16 +4,22 @@
     https://api.github.com/users/<your name>
 */
 
-const getGitHubUserData = (username) => {
-  axios
-    .get(`https://api.github.com/users/${username}`)
-    .then((response) => {
-      response.data;
-    })
-    .catch(() => {
-      console.log("Error");
-    });
+const entryPoint = document.querySelector("div.cards");
+
+const addGitHubUserCard = async (username) => {
+  try {
+    const response = await axios.get(
+      `https://api.github.com/users/${username}`
+    );
+    entryPoint.appendChild(makeUserCard(response.data));
+  } catch (error) {
+    console.log("Error fetching user data!");
+  } finally {
+    console.log("getGitHubUserData() was run!");
+  }
 };
+
+addGitHubUserCard("WaywardPooch");
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -27,10 +33,6 @@ const getGitHubUserData = (username) => {
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
-const myUserData = getGitHubUserData("WaywardPooch");
-const entryPoint = document.querySelector("div.cards");
-entryPoint.appendChild(makeUserCard(myUserData));
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
