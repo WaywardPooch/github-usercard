@@ -93,6 +93,18 @@ const makeUserCard = (userObj) => {
   userUsername.classList.add("username");
 
   // Assign attributes/content
+  userImage.src = userObj.avatar_url;
+  userName.textContent = userObj.name;
+  userUsername.textContent = userObj.login;
+  userLocation.textContent = `Location: ${userObj.location}`;
+  userProfileURL.href = userObj.url;
+  userProfileURL.textContent = userObj.url;
+  userFollowersCount.textContent = `Followers: ${userObj.followers}`;
+  userFollowingCount.textContent = `Following: ${userObj.following}`;
+  userBio.textContent = `Bio: ${userObj.bio}`;
+
+  // Return the created markup
+  return userCard;
 };
 
 // getGitHubUserInfo = async (username) => {
