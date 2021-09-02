@@ -4,15 +4,16 @@
     https://api.github.com/users/<your name>
 */
 
-// Get request below (commented out for clarity in later sections)
-// axios
-//   .get(`https://api.github.com/users/WaywardPooch`)
-//   .then((response) => {
-//     console.log(response.data.login);
-//   })
-//   .catch(() => {
-//     console.log("Error");
-//   });
+const getGitHubUserData = (username) => {
+  axios
+    .get(`https://api.github.com/users/${username}`)
+    .then((response) => {
+      response.data;
+    })
+    .catch(() => {
+      console.log("Error");
+    });
+};
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -21,6 +22,28 @@
 
     Skip to STEP 3 (line 34).
 */
+
+/*
+  STEP 4: Pass the data received from Github into your function,
+    and append the returned markup to the DOM as a child of .cards
+*/
+
+const myUserData = getGitHubUserData("WaywardPooch");
+const entryPoint = document.querySelector("div.cards");
+entryPoint.appendChild(makeUserCard(myUserData));
+
+/*
+  STEP 5: Now that you have your own card getting added to the DOM, either
+    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
+    manually find some other users' github handles, or use the list found at the
+    bottom of the page. Get at least 5 different Github usernames and add them as
+    Individual strings to the friendsArray below.
+
+    Using that array, iterate over it, requesting data for each user, creating a new card for each
+    user, and adding that card to the DOM.
+*/
+
+const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -42,7 +65,7 @@
     </div>
 */
 
-const makeUserCard = (userObj) => {
+function makeUserCard(userObj) {
   // Create elements
   const userCard = document.createElement("div");
   const userImage = document.createElement("img");
@@ -77,54 +100,19 @@ const makeUserCard = (userObj) => {
   userUsername.classList.add("username");
 
   // Assign attributes/content
-  userImage.src = userObj.avatar_url;
-  userName.textContent = userObj.name;
-  userUsername.textContent = userObj.login;
-  userLocation.textContent = `Location: ${userObj.location}`;
-  userProfileURL.href = userObj.url;
-  userProfileURL.textContent = userObj.url;
-  userFollowersCount.textContent = `Followers: ${userObj.followers}`;
-  userFollowingCount.textContent = `Following: ${userObj.following}`;
-  userBio.textContent = `Bio: ${userObj.bio}`;
+  userImage.src = userObj["avatar_url"];
+  userName.textContent = userObj["name"];
+  userUsername.textContent = userObj["login"];
+  userLocation.textContent = `Location: ${userObj["location"]}`;
+  userProfileURL.href = userObj["url"];
+  userProfileURL.textContent = userObj["url"];
+  userFollowersCount.textContent = `Followers: ${userObj["followers"]}`;
+  userFollowingCount.textContent = `Following: ${userObj["following"]}`;
+  userBio.textContent = `Bio: ${userObj["bio"]}`;
 
   // Return the created markup
   return userCard;
-};
-
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
-
-async function getGitHubUserData(username) {
-  try {
-    // Send a get request
-    const response = await axios.get(
-      `https://api.github.com/users/${username}`
-    );
-    console.log(response.data);
-  } catch (err) {
-    // Failed attempt runs the code below
-    console.log("Failure!");
-  }
 }
-
-const entryPoint = document.querySelector("div.cards");
-const myUserData = getGitHubUserData("WaywardPooch");
-entryPoint.appendChild(makeUserCard(myUserData));
-
-/*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
-    Individual strings to the friendsArray below.
-
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
-    user, and adding that card to the DOM.
-*/
-
-const followersArray = [];
 
 /*
   List of LS Instructors Github username's:
