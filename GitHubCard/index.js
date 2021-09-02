@@ -3,6 +3,14 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios
+  .get(`https://api.github.com/users/WaywardPooch`)
+  .then((response) => {
+    console.log(response.data.login);
+  })
+  .catch(() => {
+    console.log("Error");
+  });
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +57,57 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const makeUserCard = (userObj) => {
+  // Create elements
+  const userCard = document.createElement("div");
+  const userImage = document.createElement("img");
+  const userInfo = document.createElement("div");
+  const userName = document.createElement("h3");
+  const userUsername = document.createElement("p");
+  const userLocation = document.createElement("p");
+  const userProfile = document.createElement("p");
+  const userProfileURL = document.createElement("a");
+  const userFollowersCount = document.createElement("p");
+  const userFollowingCount = document.createElement("p");
+  const userBio = document.createElement("p");
+
+  // Append elements
+  userCard.appendChild(userImage);
+  userCard.appendChild(userInfo);
+
+  userInfo.appendChild(userName);
+  userInfo.appendChild(userUsername);
+  userInfo.appendChild(userLocation);
+  userInfo.appendChild(userProfile);
+  userInfo.appendChild(userFollowersCount);
+  userInfo.appendChild(userFollowingCount);
+  userInfo.appendChild(userBio);
+
+  userProfile.appendChild(userProfileURL);
+
+  // Assign classes
+  userCard.classList.add("card");
+  userInfo.classList.add("card-info");
+  userName.classList.add("name");
+  userUsername.classList.add("username");
+
+  // Assign attributes/content
+};
+
+// getGitHubUserInfo = async (username) => {
+//   try {
+//     // Send a get request
+//     const userInfo = await axios.get(
+//       `https://api.github.com/users/${username}`
+//     );
+//     // Successful attempt runs the code below
+//     console.log(`Success! Data: ${userInfo}`);
+//   } catch (err) {
+//     // Failed attempt runs the code below
+//     console.log("Failure!");
+//   }
+// };
 
 /*
   List of LS Instructors Github username's:
